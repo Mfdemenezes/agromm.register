@@ -28,57 +28,47 @@ const html = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f2f5; padding: 20px 0;">
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5; padding: 30px 0;">
         <tr>
             <td align="center">
-                <table width="650" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; max-width: 600px;">
                     
-                    <!-- Header com imagem de fundo -->
+                    <!-- Header com imagem -->
                     <tr>
-                        <td style="position: relative; height: 280px; background-image: url('${baseUrl}/cabecalho-fazenda.png'); background-size: cover; background-position: center; padding: 0;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="height: 280px;">
-                                <tr>
-                                    <td style="background: linear-gradient(180deg, rgba(46, 125, 50, 0.85) 0%, rgba(27, 94, 32, 0.95) 100%); padding: 30px 40px;" valign="middle">
-                                        <table width="100%" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td align="center">
-                                                    <img src="${baseUrl}/logo-agromm.png" alt="AgroMM" style="width: 120px; height: auto; margin-bottom: 20px;">
-                                                    <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Relatório Quinzenal</h1>
-                                                    <p style="color: #e8f5e9; margin: 10px 0 0 0; font-size: 18px; font-weight: 300;">Clima, Manejo e Inteligência Artificial</p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td style="padding: 0;">
+                            <img src="${baseUrl}/cabecalho-fazenda.png" alt="Fazenda" width="600" style="display: block; width: 100%; max-width: 600px; height: auto;">
+                        </td>
+                    </tr>
+                    
+                    <!-- Logo e Título -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); padding: 30px 40px; text-align: center;">
+                            <img src="${baseUrl}/logo-agromm.png" alt="AgroMM" width="100" style="display: block; margin: 0 auto 15px; width: 100px; height: auto;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">Relatório Quinzenal</h1>
+                            <p style="color: #c8e6c9; margin: 8px 0 0; font-size: 16px; font-weight: 400;">Clima, Manejo e Inteligência Artificial</p>
                         </td>
                     </tr>
                     
                     <!-- Saudação -->
                     <tr>
-                        <td style="padding: 35px 40px 25px; background: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);">
-                            <p style="color: #1b5e20; font-size: 18px; line-height: 1.6; margin: 0; font-weight: 600;">
-                                Olá, ${admin.nome}! 👋
-                            </p>
-                            <p style="color: #555; font-size: 15px; line-height: 1.6; margin: 8px 0 0;">
-                                Relatório personalizado para <strong>${admin.nome_fazenda}</strong> em <strong>${admin.cidade}/${admin.estado}</strong>
+                        <td style="padding: 35px 40px 20px; background-color: #fafafa;">
+                            <h2 style="color: #1b5e20; font-size: 20px; margin: 0 0 8px; font-weight: 600;">Olá, ${admin.nome}! 👋</h2>
+                            <p style="color: #666; font-size: 14px; line-height: 1.5; margin: 0;">
+                                Relatório personalizado para <strong>${admin.nome_fazenda}</strong> • ${admin.cidade}/${admin.estado}
                             </p>
                         </td>
                     </tr>
                     
                     <!-- Análise IA -->
                     <tr>
-                        <td style="padding: 0 40px 25px;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+                        <td style="padding: 0 40px 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;">
                                 <tr>
-                                    <td>
-                                        <h2 style="color: #ffffff; margin: 0 0 15px; font-size: 22px; font-weight: 600;">🤖 Análise Inteligente</h2>
-                                        <p style="color: #f0f0f0; font-size: 15px; line-height: 1.7; margin: 0; white-space: pre-line;">
-${sugestoesIA}
-                                        </p>
+                                    <td style="padding: 25px;">
+                                        <h3 style="color: #ffffff; margin: 0 0 12px; font-size: 18px; font-weight: 600;">🤖 Análise Inteligente</h3>
+                                        <p style="color: #f5f5f5; font-size: 14px; line-height: 1.6; margin: 0; white-space: pre-line;">${sugestoesIA}</p>
                                     </td>
                                 </tr>
                             </table>
@@ -87,31 +77,33 @@ ${sugestoesIA}
                     
                     <!-- Previsão do Tempo -->
                     <tr>
-                        <td style="padding: 0 40px 25px;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 10px; padding: 25px; border: 2px solid #2196f3;">
+                        <td style="padding: 0 40px 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #e3f2fd; border-radius: 8px; border: 2px solid #2196f3;">
                                 <tr>
-                                    <td>
-                                        <h2 style="color: #0d47a1; margin: 0 0 20px; font-size: 22px; font-weight: 600;">☀️ Previsão do Tempo</h2>
-                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                    <td style="padding: 25px;">
+                                        <h3 style="color: #0d47a1; margin: 0 0 15px; font-size: 18px; font-weight: 600;">☀️ Previsão do Tempo</h3>
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                             <tr>
-                                                <td width="50%" style="padding: 12px 15px; background-color: rgba(255,255,255,0.7); border-radius: 8px;">
-                                                    <p style="color: #0d47a1; font-size: 13px; margin: 0; font-weight: 600;">🌡️ TEMPERATURA</p>
-                                                    <p style="color: #1565c0; font-size: 24px; margin: 5px 0 0; font-weight: 700;">${temp_min}°C - ${temp_max}°C</p>
+                                                <td width="48%" style="padding: 15px; background-color: #ffffff; border-radius: 6px; vertical-align: top;">
+                                                    <p style="color: #0d47a1; font-size: 11px; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">🌡️ Temperatura</p>
+                                                    <p style="color: #1565c0; font-size: 22px; margin: 5px 0 0; font-weight: 700;">${temp_min}°C - ${temp_max}°C</p>
                                                 </td>
-                                                <td width="50%" style="padding: 12px 15px; background-color: rgba(255,255,255,0.7); border-radius: 8px;">
-                                                    <p style="color: #0d47a1; font-size: 13px; margin: 0; font-weight: 600;">💧 UMIDADE</p>
-                                                    <p style="color: #1565c0; font-size: 24px; margin: 5px 0 0; font-weight: 700;">${umidade}%</p>
+                                                <td width="4%"></td>
+                                                <td width="48%" style="padding: 15px; background-color: #ffffff; border-radius: 6px; vertical-align: top;">
+                                                    <p style="color: #0d47a1; font-size: 11px; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">💧 Umidade</p>
+                                                    <p style="color: #1565c0; font-size: 22px; margin: 5px 0 0; font-weight: 700;">${umidade}%</p>
                                                 </td>
                                             </tr>
-                                            <tr><td colspan="2" style="height: 10px;"></td></tr>
+                                            <tr><td colspan="3" style="height: 10px;"></td></tr>
                                             <tr>
-                                                <td width="50%" style="padding: 12px 15px; background-color: rgba(255,255,255,0.7); border-radius: 8px;">
-                                                    <p style="color: #0d47a1; font-size: 13px; margin: 0; font-weight: 600;">☁️ CONDIÇÃO</p>
-                                                    <p style="color: #1565c0; font-size: 16px; margin: 5px 0 0; font-weight: 600; text-transform: capitalize;">${condicao}</p>
+                                                <td width="48%" style="padding: 15px; background-color: #ffffff; border-radius: 6px; vertical-align: top;">
+                                                    <p style="color: #0d47a1; font-size: 11px; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">☁️ Condição</p>
+                                                    <p style="color: #1565c0; font-size: 15px; margin: 5px 0 0; font-weight: 600; text-transform: capitalize;">${condicao}</p>
                                                 </td>
-                                                <td width="50%" style="padding: 12px 15px; background-color: rgba(255,255,255,0.7); border-radius: 8px;">
-                                                    <p style="color: #0d47a1; font-size: 13px; margin: 0; font-weight: 600;">🌧️ CHUVA</p>
-                                                    <p style="color: #1565c0; font-size: 24px; margin: 5px 0 0; font-weight: 700;">${prob_chuva}%</p>
+                                                <td width="4%"></td>
+                                                <td width="48%" style="padding: 15px; background-color: #ffffff; border-radius: 6px; vertical-align: top;">
+                                                    <p style="color: #0d47a1; font-size: 11px; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">🌧️ Prob. Chuva</p>
+                                                    <p style="color: #1565c0; font-size: 22px; margin: 5px 0 0; font-weight: 700;">${prob_chuva}%</p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -121,48 +113,41 @@ ${sugestoesIA}
                         </td>
                     </tr>
                     
-                    <!-- Recomendações de Manejo -->
+                    <!-- Recomendações -->
                     <tr>
-                        <td style="padding: 0 40px 25px;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%); border-radius: 10px; padding: 25px; border-left: 6px solid #4caf50;">
+                        <td style="padding: 0 40px 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f1f8e9; border-radius: 8px; border-left: 4px solid #4caf50;">
                                 <tr>
-                                    <td>
-                                        <h2 style="color: #1b5e20; margin: 0 0 15px; font-size: 22px; font-weight: 600;">🐄 Recomendações de Manejo</h2>
-                                        <p style="color: #2e7d32; font-size: 15px; line-height: 1.7; margin: 0;">
-                                            ${recomendacao}
-                                        </p>
+                                    <td style="padding: 25px;">
+                                        <h3 style="color: #1b5e20; margin: 0 0 12px; font-size: 18px; font-weight: 600;">🐄 Recomendações de Manejo</h3>
+                                        <p style="color: #2e7d32; font-size: 14px; line-height: 1.6; margin: 0;">${recomendacao}</p>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     
-                    <!-- Resumo da Fazenda com imagem -->
+                    <!-- Imagem da Fazenda -->
                     <tr>
-                        <td style="padding: 0 40px 25px;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <td style="padding: 0 40px 20px;">
+                            <img src="${baseUrl}/fazenda-gado.jpg" alt="Fazenda" width="520" style="display: block; width: 100%; max-width: 520px; height: auto; border-radius: 8px;">
+                        </td>
+                    </tr>
+                    
+                    <!-- Resumo da Fazenda -->
+                    <tr>
+                        <td style="padding: 0 40px 20px;">
+                            <h3 style="color: #333; margin: 0 0 15px; font-size: 18px; font-weight: 600;">📊 ${admin.nome_fazenda}</h3>
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
-                                    <td style="position: relative; height: 200px; background-image: url('${baseUrl}/fazenda-gado.jpg'); background-size: cover; background-position: center;">
-                                        <table width="100%" cellpadding="0" cellspacing="0" style="height: 200px;">
-                                            <tr>
-                                                <td style="background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 100%); padding: 25px;">
-                                                    <h2 style="color: #ffffff; margin: 0 0 20px; font-size: 22px; font-weight: 600; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">📊 ${admin.nome_fazenda}</h2>
-                                                    <table width="100%" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td width="48%" align="center" style="padding: 15px; background-color: rgba(76, 175, 80, 0.9); border-radius: 8px;">
-                                                                <p style="color: #ffffff; font-size: 36px; font-weight: 700; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${admin.total_animais || 0}</p>
-                                                                <p style="color: #e8f5e9; font-size: 14px; margin: 5px 0 0; font-weight: 600;">Animais</p>
-                                                            </td>
-                                                            <td width="4%"></td>
-                                                            <td width="48%" align="center" style="padding: 15px; background-color: rgba(255, 152, 0, 0.9); border-radius: 8px;">
-                                                                <p style="color: #ffffff; font-size: 36px; font-weight: 700; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${admin.compras_ultimos_15_dias || 0}</p>
-                                                                <p style="color: #fff3e0; font-size: 14px; margin: 5px 0 0; font-weight: 600;">Compras (15 dias)</p>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    <td width="48%" style="padding: 20px; background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); border-radius: 8px; text-align: center;">
+                                        <p style="color: #ffffff; font-size: 36px; font-weight: 700; margin: 0; line-height: 1;">${admin.total_animais || 0}</p>
+                                        <p style="color: #c8e6c9; font-size: 13px; margin: 8px 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Animais</p>
+                                    </td>
+                                    <td width="4%"></td>
+                                    <td width="48%" style="padding: 20px; background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); border-radius: 8px; text-align: center;">
+                                        <p style="color: #ffffff; font-size: 36px; font-weight: 700; margin: 0; line-height: 1;">${admin.compras_ultimos_15_dias || 0}</p>
+                                        <p style="color: #fff3e0; font-size: 13px; margin: 8px 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Compras (15 dias)</p>
                                     </td>
                                 </tr>
                             </table>
@@ -171,19 +156,26 @@ ${sugestoesIA}
                     
                     <!-- CTA -->
                     <tr>
-                        <td style="padding: 0 40px 35px;" align="center">
-                            <a href="https://agromm.mbam.com.br" style="display: inline-block; background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 30px; font-size: 17px; font-weight: 700; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);">
-                                🚀 Acessar AgroMM
-                            </a>
+                        <td style="padding: 10px 40px 35px;" align="center">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td style="background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); border-radius: 50px; padding: 14px 35px;">
+                                        <a href="https://agromm.mbam.com.br" style="color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 700; display: block;">🚀 Acessar AgroMM</a>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     
                     <!-- Footer -->
                     <tr>
-                        <td style="background: linear-gradient(135deg, #263238 0%, #37474f 100%); padding: 25px 40px; text-align: center;">
-                            <p style="color: #b0bec5; font-size: 13px; margin: 0; line-height: 1.6;">
-                                Você está recebendo este email porque é administrador da <strong style="color: #ffffff;">${admin.nome_fazenda}</strong><br>
-                                <span style="color: #78909c;">© 2025 AgroMM - Gestão Pecuária Inteligente com IA</span>
+                        <td style="background-color: #263238; padding: 30px 40px; text-align: center;">
+                            <p style="color: #90a4ae; font-size: 12px; margin: 0; line-height: 1.6;">
+                                Você está recebendo este email porque é administrador da<br>
+                                <strong style="color: #ffffff;">${admin.nome_fazenda}</strong>
+                            </p>
+                            <p style="color: #546e7a; font-size: 11px; margin: 15px 0 0;">
+                                © ${new Date().getFullYear()} AgroMM - Gestão Pecuária Inteligente com IA
                             </p>
                         </td>
                     </tr>
