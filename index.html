@@ -1,204 +1,52 @@
-const admin = $input.first().json;       // Dados do admin vindos do Postgres
-const clima = $input.last().json;        // Dados do clima via OpenWeather
-
-// --- Clima ---
-const temp_min = Math.round(clima.list[0].main.temp_min);
-const temp_max = Math.round(clima.list[0].main.temp_max);
-const condicao = clima.list[0].weather[0].description;
-const umidade = clima.list[0].main.humidity;
-const prob_chuva = Math.round((clima.list[0].pop || 0) * 100);
-
-// --- Recomendações Baseadas em Clima ---
-let recomendacao = '';
-if (prob_chuva > 70) {
-  recomendacao = '☔ Alta chance de chuva nos próximos dias. Recomendamos revisar abrigos, drenagem e evitar manejos dependentes de tempo seco.';
-} else if (temp_max > 32) {
-  recomendacao = '🌡️ Semana muito quente. Garanta sombra, água fresca e evite manejos intensos à tarde.';
-} else if (temp_min < 15) {
-  recomendacao = '🥶 Temperaturas baixas chegando. Atenção com animais jovens e oferta energética da dieta.';
-} else {
-  recomendacao = '✅ Clima estável. Momento ideal para manejos de rotina, revisão de lotes e vacinação.';
-}
-
-// --- Dica da Quinzena ---
-const dicas = [
-  '💡 Mantenha seu rebanho sempre atualizado no AgroMM para desbloquear estatísticas automáticas.',
-  '💡 Acompanhe as finanças da fazenda pelo módulo Financeiro.',
-  '💡 Use o sistema para controlar vacinas e vermifugações.',
-  '💡 Acompanhe o ganho médio diário das categorias de animais pelo módulo de Pesagens.',
-  '💡 Utilize etiquetas e lotes para organizar melhor seu rebanho.'
-];
-const dica_quinzena = dicas[Math.floor(Math.random() * dicas.length)];
-
-const anoAtual = new Date().getFullYear();
-
-// --- HTML ---
-const html = `
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Relatório Quinzenal AgroMM</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon-agromm.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-agromm.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-agromm.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-agromm.png" />
+    <link rel="shortcut icon" href="/favicon-agromm.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgroMM Solution - Gestão Inteligente de Pecuária</title>
+    <meta name="description" content="Sistema completo de gestão para pecuária. Teste grátis por 7 dias. Controle de rebanho, finanças e operações em um só lugar." />
+    
+    <!-- Google Analytics - Principal -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RHMM7FZPEZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RHMM7FZPEZ');
+      gtag('config', 'G-RNWGYWD2KE');
+    </script>
 
-<body style="margin:0; padding:0; background:#f2f4f7; font-family:Arial, sans-serif;">
-
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 0;">
-    <tr>
-      <td align="center">
-
-        <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,0.08);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background:#1b5e20; padding:28px; text-align:center; color:#fff;">
-              <h1 style="margin:0; font-size:26px; font-weight:bold;">Relatório Quinzenal AgroMM</h1>
-              <p style="margin:6px 0 0; font-size:14px; opacity:0.85;">Clima • Manejo • Inteligência Pecuária</p>
-            </td>
-          </tr>
-
-          <!-- Saudação -->
-          <tr>
-            <td style="padding:28px;">
-              <h2 style="margin:0 0 8px; color:#1b5e20;">Olá, ${admin.nome}! 👋</h2>
-              <p style="margin:0; color:#555; font-size:14px;">
-                Aqui está o relatório quinzenal da fazenda <strong>${admin.nome_fazenda}</strong>
-                (${admin.cidade}/${admin.estado}).
-              </p>
-            </td>
-          </tr>
-
-          <!-- Clima -->
-          <tr>
-            <td style="padding:0 28px 24px;">
-              <div style="background:#e3f2fd; border:1px solid #64b5f6; border-radius:10px; padding:20px;">
-                <h3 style="margin:0 0 12px; color:#0d47a1; font-size:18px;">☀️ Previsão do Tempo</h3>
-
-                <table width="100%">
-                  <tr>
-                    <td width="50%" style="background:#fff; padding:14px; border-radius:8px;">
-                      <p style="margin:0; font-size:11px; text-transform:uppercase; font-weight:bold; color:#0d47a1;">Temperatura</p>
-                      <p style="margin:4px 0 0; font-size:20px; font-weight:bold; color:#1565c0;">${temp_min}°C – ${temp_max}°C</p>
-                    </td>
-
-                    <td width="4%"></td>
-
-                    <td width="50%" style="background:#fff; padding:14px; border-radius:8px;">
-                      <p style="margin:0; font-size:11px; text-transform:uppercase; font-weight:bold; color:#0d47a1;">Umidade</p>
-                      <p style="margin:4px 0 0; font-size:20px; font-weight:bold; color:#1565c0;">${umidade}%</p>
-                    </td>
-                  </tr>
-
-                  <tr><td colspan="3" style="height:10px;"></td></tr>
-
-                  <tr>
-                    <td width="50%" style="background:#fff; padding:14px; border-radius:8px;">
-                      <p style="margin:0; font-size:11px; text-transform:uppercase; font-weight:bold; color:#0d47a1;">Condição</p>
-                      <p style="margin:4px 0 0; font-size:15px; color:#0d47a1; text-transform:capitalize;">
-                        ${condicao}
-                      </p>
-                    </td>
-
-                    <td></td>
-
-                    <td width="50%" style="background:#fff; padding:14px; border-radius:8px;">
-                      <p style="margin:0; font-size:11px; text-transform:uppercase; font-weight:bold; color:#0d47a1;">
-                        Prob. Chuva
-                      </p>
-                      <p style="margin:4px 0 0; font-size:20px; font-weight:bold; color:#1565c0;">${prob_chuva}%</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Manejo -->
-          <tr>
-            <td style="padding:0 28px 24px;">
-              <h3 style="margin:0 0 12px; color:#1b5e20; font-size:18px;">🐄 Recomendações de Manejo</h3>
-              <div style="background:#f1f8e9; border-left:5px solid #4caf50; padding:18px; border-radius:10px;">
-                <p style="margin:0; font-size:14px; color:#2e7d32; line-height:1.5;">
-                  ${recomendacao}
-                </p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Dica -->
-          <tr>
-            <td style="padding:0 28px 24px;">
-              <h3 style="margin:0 0 12px; color:#d35400; font-size:18px;">💡 Dica da Quinzena</h3>
-              <div style="background:#fff3e0; border-left:5px solid #ff9800; padding:18px; border-radius:10px;">
-                <p style="margin:0; font-size:14px; color:#555;">${dica_quinzena}</p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Estatísticas da Fazenda -->
-          <tr>
-            <td style="padding:0 28px 32px;">
-              <h3 style="margin:0 0 12px; color:#333; font-size:18px;">📊 Resumo da Fazenda</h3>
-
-              <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="50%" style="padding-right:8px;">
-                    <div style="background:#e8f5e9; padding:16px; border-radius:10px; text-align:center;">
-                      <p style="margin:0; font-size:32px; color:#1b5e20; font-weight:bold;">${admin.total_animais}</p>
-                      <p style="margin:4px 0 0; color:#555; font-size:13px;">Animais</p>
-                    </div>
-                  </td>
-
-                  <td width="50%" style="padding-left:8px;">
-                    <div style="background:#fff3e0; padding:16px; border-radius:10px; text-align:center;">
-                      <p style="margin:0; font-size:32px; color:#e67e22; font-weight:bold;">${admin.compras_ultimos_15_dias}</p>
-                      <p style="margin:4px 0 0; color:#555; font-size:13px;">Compras (15 dias)</p>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- CTA -->
-          <tr>
-            <td style="padding:0 28px 32px; text-align:center;">
-              <a href="https://agromm.mbam.com.br"
-                 style="background:#2e7d32; padding:14px 32px; border-radius:999px; color:#fff;
-                        text-decoration:none; font-size:16px; font-weight:bold;">
-                Acessar AgroMM
-              </a>
-            </td>
-          </tr>
-
-          <!-- Rodapé -->
-          <tr>
-            <td style="background:#263238; padding:22px; text-align:center;">
-              <p style="margin:0; font-size:12px; color:#b0bec5;">
-                Você está recebendo este e-mail porque é administrador da fazenda
-                <strong style="color:white;">${admin.nome_fazenda}</strong>.
-              </p>
-              <p style="margin:8px 0 0; font-size:11px; color:#78909c;">
-                © ${anoAtual} AgroMM – Gestão Pecuária Inteligente
-              </p>
-            </td>
-          </tr>
-
-        </table>
-
-      </td>
-    </tr>
-  </table>
-
-</body>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2379858655865405');
+      fbq('init', '803370366204273');
+      fbq('track', 'PageView');
+    </script>
+    <script type="module" crossorigin src="/assets/index-D80_1noI.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CTnk9Y49.css">
+  </head>
+  <body>
+    <!-- Meta Pixel Noscript -->
+    <noscript>
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2379858655865405&ev=PageView&noscript=1"/>
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=803370366204273&ev=PageView&noscript=1"/>
+    </noscript>
+    
+    <div id="root"></div>
+  </body>
 </html>
-`;
-
-return {
-  json: {
-    to: admin.email,
-    subject: `🌤️ Relatório Quinzenal AgroMM — ${admin.cidade}/${admin.estado}`,
-    html
-  }
-};
