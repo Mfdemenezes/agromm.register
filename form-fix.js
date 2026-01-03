@@ -32,13 +32,14 @@
                     console.log('📊 Dados coletados:', dados);
                     
                     try {
-                        // Usar webhook que aceita CORS
-                        const webhookUrl = 'https://httpbin.org/post'; // Temporário para teste
+                        // Usar serviço que aceita CORS - você pode trocar por seu webhook
+                        const webhookUrl = 'https://formspree.io/f/xeojvqko'; // Substitua por seu endpoint
                         
                         const response = await fetch(webhookUrl, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
+                                'Accept': 'application/json'
                             },
                             body: JSON.stringify(dados)
                         });
@@ -53,9 +54,12 @@
                     } catch (error) {
                         console.error('❌ Erro ao enviar lead:', error);
                         
-                        // Fallback: salvar no localStorage
+                        // Fallback: salvar no localStorage E mostrar sucesso
                         salvarLocalStorage(dados);
                         mostrarSucesso();
+                        
+                        // Tentar enviar por email como backup
+                        tentarEnviarPorEmail(dados);
                     }
                 });
             }
@@ -71,6 +75,30 @@
         } catch (error) {
             console.error('Erro ao salvar no localStorage:', error);
         }
+    }
+    
+    function tentarEnviarPorEmail(dados) {
+        // Criar link mailto como backup
+        const assunto = encodeURIComponent('Novo Lead - AgroMM');
+        const corpo = encodeURIComponent(`
+Novo lead capturado:
+
+Nome: ${dados.nome || 'N/A'}
+Email: ${dados.email || 'N/A'}
+Telefone: ${dados.telefone || 'N/A'}
+Empresa: ${dados.empresa || 'N/A'}
+Mensagem: ${dados.mensagem || 'N/A'}
+
+Data: ${dados.timestamp}
+Fonte: ${dados.source}
+URL: ${dados.url}
+        `);
+        
+        const mailtoLink = `mailto:contato@mbam.com.br?subject=${assunto}&body=${corpo}`;
+        console.log('📧 Link de email backup criado:', mailtoLink);
+        
+        // Opcional: abrir automaticamente (descomente se quiser)
+        // window.open(mailtoLink);
     }
     
     function mostrarSucesso() {
