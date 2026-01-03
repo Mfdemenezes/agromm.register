@@ -32,8 +32,8 @@
                     console.log('📊 Dados coletados:', dados);
                     
                     try {
-                        // Tentar enviar para webhook (substitua pela URL real)
-                        const webhookUrl = 'https://webhook.site/#!/unique-id-here'; // SUBSTITUIR PELA URL REAL
+                        // Usar webhook que aceita CORS
+                        const webhookUrl = 'https://httpbin.org/post'; // Temporário para teste
                         
                         const response = await fetch(webhookUrl, {
                             method: 'POST',
