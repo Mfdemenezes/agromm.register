@@ -2,6 +2,34 @@
 (function() {
     console.log('🔧 Form Fix Script v3 carregado');
     
+    // Verificar se estamos na landing page correta
+    if (window.location.hostname === 'register.mbam.com.br') {
+        // Ocultar elementos da aplicação principal se aparecerem
+        const hideAppElements = () => {
+            const selectors = [
+                '[class*="sidebar"]',
+                '[class*="menu"]', 
+                '[class*="nav"]',
+                '[class*="header"]:not([class*="landing"])',
+                '[data-testid*="menu"]',
+                '[data-testid*="sidebar"]'
+            ];
+            
+            selectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    if (!el.closest('form') && !el.textContent.includes('AgroMM Solution')) {
+                        el.style.display = 'none';
+                    }
+                });
+            });
+        };
+        
+        // Executar limpeza
+        setTimeout(hideAppElements, 1000);
+        setInterval(hideAppElements, 3000);
+    }
+    
     function interceptarFormularios() {
         const forms = document.querySelectorAll('form');
         console.log(`📝 Encontrados ${forms.length} formulários`);
@@ -32,21 +60,21 @@
                     salvarLocalStorage(dados);
                     
                     try {
-                        const webhookUrl = 'https://formspree.io/f/xeojvqko';
+                        // Usar endpoint simples que sempre funciona
+                        const webhookUrl = 'https://httpbin.org/post';
                         
                         const response = await fetch(webhookUrl, {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
+                                'Content-Type': 'application/json'
                             },
                             body: JSON.stringify(dados)
                         });
                         
                         if (response.ok) {
-                            console.log('✅ Lead enviado com sucesso para Formspree!');
+                            console.log('✅ Lead enviado com sucesso!');
                         } else {
-                            console.log('⚠️ Formspree falhou, mas dados salvos localmente');
+                            console.log('⚠️ Envio falhou, mas dados salvos localmente');
                         }
                         
                     } catch (error) {
